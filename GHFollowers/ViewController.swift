@@ -1,17 +1,18 @@
-//
-//  ViewController.swift
-//  GHFollowers
-//
-//  Created by Quadratte on 30.05.2025.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
-
+  
+  let button = UIButton()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view.
+    view.backgroundColor = .red
+    
+    view.addSubview(button)
+    button.setTitle("Hello", for: .normal)
+    button.frame = CGRect(x: 30, y: 150, width: 100, height: 20)
+    button.backgroundColor = .blue
+    
   }
 
 

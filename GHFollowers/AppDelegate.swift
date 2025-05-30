@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  GHFollowers
-//
-//  Created by Quadratte on 30.05.2025.
-//
-
 import UIKit
 
 @main
