@@ -6,17 +6,39 @@ class SearchVC: UIViewController {
     let userNameTextField = GFTextField()
     let callToAction = GFButton(backgroundColor: .systemGreen, title: "Get Followers")
     
+    var isUserNameEntered: Bool { !userNameTextField.text!.isEmpty }
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         configureLogoView()
         configureTextField()
         configureCallToAction()
+        createDismissTapGesture()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
     }
+    
+    private func createDismissTapGesture() {
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func pushFollowerListVC() {
+        
+        guard isUserNameEntered else {
+            print("no username")
+            return
+        }
+        
+        let followerListVC = FollowerListVC()
+        followerListVC.userName = userNameTextField.text
+        followerListVC.title = userNameTextField.text
+        navigationController?.pushViewController(followerListVC, animated: true)
+     }
     
     func configureLogoView() {
         view.addSubview(logoImageView)
@@ -33,6 +55,7 @@ class SearchVC: UIViewController {
     
     func configureTextField() {
         view.addSubview(userNameTextField)
+        userNameTextField.delegate = self
         
         NSLayoutConstraint.activate([
             userNameTextField.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 48),
@@ -44,6 +67,7 @@ class SearchVC: UIViewController {
     
     private func configureCallToAction() {
         view.addSubview(callToAction)
+        callToAction.addTarget(self, action: #selector(pushFollowerListVC), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             callToAction.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
@@ -51,5 +75,12 @@ class SearchVC: UIViewController {
             callToAction.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
             callToAction.heightAnchor.constraint(equalToConstant: 50),
         ])
+    }
+}
+
+extension SearchVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print("did tap return")
+        return true
     }
 }
