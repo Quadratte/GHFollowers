@@ -82,13 +82,13 @@
 			children = (
 				70F452412F9D47290055A45F /* Utilities */,
 				70171CD22F99632800204B38 /* Managers */,
-				704FFC632F9863CD004F514F /* Support */,
 				704FFC5E2F985F02004F514F /* Model */,
-				701C5D822F9814D400CC2478 /* Components */,
 				701C5D812F98126F00CC2478 /* Extensions */,
+				701C5D822F9814D400CC2478 /* Components */,
 				701C5D802F98117400CC2478 /* Screens */,
 				5A06CD212F8C320900EBB142 /* AppDelegate.swift */,
 				5A06CD232F8C320900EBB142 /* SceneDelegate.swift */,
+				704FFC632F9863CD004F514F /* Support */,
 			);
 			path = GHFollowers;
 			sourceTree = "<group>";
@@ -106,8 +106,8 @@
 			children = (
 				70793BB22F972E9400D653CC /* UIViewController+Extension.swift */,
 				1012615E2F9152DE00E94551 /* SearchVC.swift */,
-				101261602F9152E600E94551 /* FavoritesListVC.swift */,
 				7024C0552F94D76200AA2BFD /* FollowerListVC.swift */,
+				101261602F9152E600E94551 /* FavoritesListVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";

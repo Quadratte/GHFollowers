@@ -2,10 +2,16 @@
 import UIKit
 
 class FollowerListVC: UIViewController {
-    
+
+    enum Section {
+        case main
+
+    }
+
     var userName: String!
     var collectionView: UICollectionView!
-    
+    var dataSource: UICollectionViewDiffableDataSource<Section, Follower>!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -24,7 +30,7 @@ class FollowerListVC: UIViewController {
     }
     
     func configureCollectionView() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createThreeColumnFlowLayout())
         view.addSubview(collectionView)
         collectionView.backgroundColor = .systemPink
         collectionView.register(FollowerCell.self, forCellWithReuseIdentifier: FollowerCell.reuseID)
@@ -47,8 +53,20 @@ class FollowerListVC: UIViewController {
             switch result {
             case .success(let followers):
                 print(followers)
-            case .failure(let error):                self.presentGFAlertOnMainThred(title: "Bad stuff happend", message: error.rawValue, buttonTitle: "Ok")
+            case .failure(let error):
+                self.presentGFAlertOnMainThred(title: "Bad stuff happend",
+                                               message: error.rawValue,
+                                               buttonTitle: "Ok")
             }
         }
+    }
+
+    func configureDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<Section, Follower>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, follower) -> UICollectionViewCell? in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FollowerCell.reuseID, for: indexPath) as! FollowerCell
+
+            cell.set(follower: follower)
+            return cell
+        })
     }
 }
